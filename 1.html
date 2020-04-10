@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style></style>
+</head>
+<body>
+	<div id="container">
+		<div class="text"></div>
+	</div>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<script>
+		
+		$.ajax({	
+		    //请求方式
+		    type:'get',
+		    
+		    //发送请求的地址
+		    //我这里的地址是不需要传数据的，所以没有拼接参数
+		    url:'https://cnodejs.org/api/v1/topics',
+		    
+		    //服务器返回的数据类型
+		    dataType:'json',
+		    
+		    //请求成功的处理
+		    success:function(data){
+		        console.log(data);
+		        //获取需要的数据
+		        var group = data.data;
+		        
+		        //拼接字符串
+			    var str = '';
+			    //对数据做遍历，拼接到页面显示
+		        for(var i=0;i<group.length;i++){
+			        str += '<div class="">'+ group[i].id +'</div>'+
+							'<span class="">'+ group[i].author_id +'</span>'+
+							'<span class="">'+ group[i].tab +'</span>'+
+							'<span class="">'+ group[i].content +'</span>';
+		        }
+				
+					//放入页面的容器显示
+					$('#container').html(str);
+
+		    },
+		    //请求失败的处理
+		    error:function(jqXHR){
+		        console.log(jqXHR);
+		    }
+		});
+		
+	</script>
+
+</body>
+</html>
